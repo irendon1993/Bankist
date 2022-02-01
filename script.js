@@ -83,6 +83,29 @@ displayMovements(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const eurToUsd = 1.1;
+
+const movementsUSD = movements.map(mov => mov * eurToUsd);
+
+// const movementsUSD = movements.map(function (mov) {
+//   return mov * eurToUsd;
+// });
+
+console.log(movementsUSD);
+
+const movementsUSDfor = [];
+for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+console.log(movementsUSDfor);
+
+const movementsDescriptions = movements.map(
+  (mov, i) =>
+    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+      mov
+    )}`
+);
+console.log(movementsDescriptions);
 ///////////////////////////////////////
 // Coding Challenge #1
 
@@ -111,13 +134,21 @@ GOOD LUCK 😀
 
 // LECTURES
 
-const dogsJulia = [3, 5, 2, 12, 7];
-const dogsKate = [4, 1, 15, 8, 3];
+// const dogsJulia = [3, 5, 2, 12, 7];
+// const dogsKate = [4, 1, 15, 8, 3];
 
-// 1. Create a function 'checkDogs', which accepts 2 arrays of dog's ages ('dogsJulia' and 'dogsKate'), and does the following things:
-// For now, they are just interested in knowing whether a dog is an adult or a puppy.
-//  A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years old.
-// dogsJulia.forEach(function (dog, i, lady) {
+// // 1. Create a function 'checkDogs', which accepts 2 arrays of dog's ages ('dogsJulia' and 'dogsKate'), and does the following things:
+// // For now, they are just interested in knowing whether a dog is an adult or a puppy.
+// //  A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years old.
+// // dogsJulia.forEach(function (dog, i, lady) {
+// //   if (dog < 3) {
+// //     console.log(`Dog number ${i + 1} is a puppy`);
+// //   } else {
+// //     console.log(`Dog number ${i + 1} is an adult`);
+// //   }
+// // });
+
+// dogsKate.forEach(function (dog, i, lady) {
 //   if (dog < 3) {
 //     console.log(`Dog number ${i + 1} is a puppy`);
 //   } else {
@@ -125,31 +156,23 @@ const dogsKate = [4, 1, 15, 8, 3];
 //   }
 // });
 
-dogsKate.forEach(function (dog, i, lady) {
-  if (dog < 3) {
-    console.log(`Dog number ${i + 1} is a puppy`);
-  } else {
-    console.log(`Dog number ${i + 1} is an adult`);
-  }
-});
+// //2.  Julia found out that the owners of the FIRST and the LAST TWO dogs actually have cats,
+// //  not dogs! So create a shallow copy of Julia's array,
+// //  and remove the cat ages from that copied array (because it's a bad practice to mutate function parameters)
 
-//2.  Julia found out that the owners of the FIRST and the LAST TWO dogs actually have cats,
-//  not dogs! So create a shallow copy of Julia's array,
-//  and remove the cat ages from that copied array (because it's a bad practice to mutate function parameters)
+// const newDogsJulia = dogsJulia.slice(1, 3);
+// console.log(newDogsJulia);
 
-const newDogsJulia = dogsJulia.slice(1, 3);
-console.log(newDogsJulia);
+// // 3. For each remaining dog, log to the console whether it's an adult
+// // ("Dog number 1 is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy 🐶")
 
-// 3. For each remaining dog, log to the console whether it's an adult
-// ("Dog number 1 is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy 🐶")
-
-newDogsJulia.forEach(function (dog, i, lady) {
-  if (dog < 3) {
-    console.log(`Dog number ${i + 1} is a puppy`);
-  } else {
-    console.log(`Dog number ${i + 1} is an adult`);
-  }
-});
+// newDogsJulia.forEach(function (dog, i, lady) {
+//   if (dog < 3) {
+//     console.log(`Dog number ${i + 1} is a puppy`);
+//   } else {
+//     console.log(`Dog number ${i + 1} is an adult`);
+//   }
+// });
 
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
