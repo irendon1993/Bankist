@@ -81,6 +81,13 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+
+calcDisplayBalance(account1.movements);
+
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -92,31 +99,47 @@ const createUsernames = function (accs) {
 };
 
 createUsernames(accounts);
-console.log(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const deposits = movements.filter(function (mov) {
-  return mov > 0;
-});
-
 console.log(movements);
-console.log(deposits);
 
-const depositsFor = [];
-for (const mov of movements)
-  if (mov > 0) {
-    depositsFor.push(mov);
-  }
+const balance = movements.reduce(function (acc, cur, i, arr) {
+  return acc + cur;
+}, 0);
 
-console.log(depositsFor);
+console.log(balance);
 
-const withdrawals = movements.filter(mov => mov < 0);
+// Maximum Value
+// Loops through and checks current accumolator agaisnt current movement
 
-console.log(withdrawals);
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+console.log(max);
+
+// const deposits = movements.filter(function (mov) {
+//   return mov > 0;
+// });
+
+// console.log(movements);
+// console.log(deposits);
+
+// const depositsFor = [];
+// for (const mov of movements)
+//   if (mov > 0) {
+//     depositsFor.push(mov);
+//   }
+
+// console.log(depositsFor);
+
+// const withdrawals = movements.filter(mov => mov < 0);
+
+// console.log(withdrawals);
 // const eurToUsd = 1.1;
 
 // const movementsUSD = movements.map(mov => mov * eurToUsd);
