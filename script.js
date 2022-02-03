@@ -88,6 +88,30 @@ const calcDisplayBalance = function (movements) {
 
 calcDisplayBalance(account1.movements);
 
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      console.log(arr);
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
+
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -105,6 +129,20 @@ createUsernames(accounts);
 // LECTURES
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
+const eurToUsd = 1.1;
+console.log(movements);
+
+// PIPELINE
+const totaDepositUSD = movements
+  .filter(mov => mov > 0)
+  .map((mov, i, arr) => {
+    console.log(arr);
+    return mov * eurToUsd;
+  })
+  // .map(mov => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totaDepositUSD);
 ///////////////////////////////////////
 // Coding Challenge #2
 
@@ -128,22 +166,22 @@ GOOD LUCK 😀
 
 // Create a function 'calcAverageHumanAge', which accepts an arrays of dog's ages ('ages'), and does the following things in order:
 
-const ages = [5, 2, 4, 1, 15, 8, 3];
-const ages2 = [16, 6, 10, 5, 6, 1, 4];
+// const ages = [5, 2, 4, 1, 15, 8, 3];
+// const ages2 = [16, 6, 10, 5, 6, 1, 4];
 
-const calcAverageHumanAge = function (ages) {
-  const humanAges = ages.map(age => (age <= 2 ? 2 * age : 16 + age * 4));
-  const adults = humanAges.filter(age => age >= 18);
-  console.log(humanAges);
-  console.log(adults);
+// const calcAverageHumanAge = function (ages) {
+//   const humanAges = ages.map(age => (age <= 2 ? 2 * age : 16 + age * 4));
+//   const adults = humanAges.filter(age => age >= 18);
+//   console.log(humanAges);
+//   console.log(adults);
 
-  const average = adults.reduce((acc, age) => acc + age, 0) / adults.length;
-  return average;
-};
-const avg1 = calcAverageHumanAge(ages);
-const avg2 = calcAverageHumanAge(ages2);
-console.log(avg1);
-console.log(avg2);
+//   const average = adults.reduce((acc, age) => acc + age, 0) / adults.length;
+//   return average;
+// };
+// const avg1 = calcAverageHumanAge(ages);
+// const avg2 = calcAverageHumanAge(ages2);
+// console.log(avg1);
+// console.log(avg2);
 
 // const calcAverageHumanAge = function (ages) {
 //   // 1. Calculate the dog age in human years using the following formula:
