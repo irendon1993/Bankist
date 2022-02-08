@@ -86,8 +86,8 @@ const displayMovements = function (movements) {
 };
 
 const calcDisplayBalance = function (acc) {
-  const balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} EUR`;
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance} EUR`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -160,8 +160,29 @@ btnLogin.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
-    console.log('LOGIN');
   }
+
+  btnTransfer.addEventListener('click', function (e) {
+    e.preventDefault();
+    const amount = Number(inputTransferAmount.value);
+    const receiverAcc = accounts.find(
+      acc => acc.username === inputTransferTo.value
+    );
+    inputTransferAmount.value = inputTransferTo.value = '';
+
+    if (
+      amount > 0 &&
+      receiverAcc &&
+      currentAccount.balance >= amount &&
+      receiverAcc?.username !== currentAccount.username
+    ) {
+      // Doing the trasnfer
+      currentAccount.movements.push(-amount);
+      receiverAcc.movements.push(amount);
+
+      updateUI(currentAccount);
+    }
+  });
 });
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -170,13 +191,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 const firstWithdrawal = movements.find(mov => mov < 0);
 
-console.log(movements);
-console.log(firstWithdrawal);
-
-console.log(accounts);
-
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
-console.log(account);
 
 ///////////////////////////////////////
 // Coding Challenge #3
