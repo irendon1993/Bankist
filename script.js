@@ -239,6 +239,30 @@ const firstWithdrawal = movements.find(mov => mov < 0);
 
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 
+// Empty arrays + fill methods
+// const x = new Array(7);
+// console.log(x);
+// // console.log(x.map(() => 5));
+
+// x.fill(1, 3, 5);
+// x.fill(1);
+// console.log(x);
+
+// // Array.from
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
+
+// const z = Array.from({ length: 7 }, (cur, i) => i + 1);
+// console.log(z);
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+});
+
 // Strings
 // const owners = ['Jonas', 'zach', 'adam', 'martha'];
 // console.log(owners.sort());
