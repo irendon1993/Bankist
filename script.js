@@ -66,11 +66,13 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // //////////////////////////////////
 // Functions
 
-const displayMovements = function (movements) {
-  containerMovements.innerHTML = '';
+const displayMovements = function (movements, sort = false) {
   // innerHTML passes actual html code through as oppose to textContent that only pases through text
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -220,23 +222,13 @@ btnClose.addEventListener('click', function (e) {
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
-const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat());
-
-const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
-console.log(arrDeep.flat(2));
-
-const overallbalance = accounts
-  .map(acc => acc.movements)
-  .flat()
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(overallbalance);
-
-// flatMap
-const overallbalance2 = accounts
-  .flatMap(acc => acc.movements)
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(overallbalance2);
+// Switch sorted from false to true and vice versa
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -246,6 +238,53 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const firstWithdrawal = movements.find(mov => mov < 0);
 
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+
+// Strings
+// const owners = ['Jonas', 'zach', 'adam', 'martha'];
+// console.log(owners.sort());
+// console.log(owners);
+
+// // Numbers
+// console.log(movements);
+
+// // return < 0 A,B (Keep Order)
+// // return > 0 B,A (Switch Order)
+
+// // Ascending
+// // movements.sort((a, b) => {
+// //   if (a > b) return 1;
+// //   if (b > a) return -1;
+// // });
+
+// movements.sort((a, b) => a - b);
+// console.log(movements);
+
+// // Descending
+// // movements.sort((a, b) => {
+// //   if (a > b) return -1;
+// //   if (b > a) return 1;
+// // });
+// movements.sort((a, b) => b - a);
+
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
+
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// console.log(arrDeep.flat(2));
+
+// const overallbalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(overallbalance);
+
+// // flatMap
+// const overallbalance2 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(overallbalance2);
+
+// console.log(movements);
 
 // console.log(movements);
 
