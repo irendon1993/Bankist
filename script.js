@@ -239,6 +239,59 @@ const firstWithdrawal = movements.find(mov => mov < 0);
 
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Array Methods Practice
+
+// 1.
+// const bankDepositSum = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(acc => acc > 0)
+//   .reduce((sum, cur) => sum + cur, 0);
+
+// console.log(bankDepositSum);
+
+//2.
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+
+// console.log(numDeposits1000);
+
+// 3.
+// const { deposits, withdrawls } = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce(
+//     (sums, cur) => {
+//       // cur > 0 ? (sums.deposits += cur) : (sums.withdrawls += cur);
+//       sums[cur > 0 ? 'deposits' : 'withdrawls'] += cur;
+//       return sums;
+//     },
+//     { deposits: 0, withdrawls: 0 }
+//   );
+
+// console.log(deposits, withdrawls);
+
+// 4.
+// this is a nice title -> This Is a Nice Title
+const convertTittleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+  const exceptions = ['a', 'an', 'the', 'but', 'or', 'and', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLocaleLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+  return capitalize(titleCase);
+};
+console.log(convertTittleCase('This is a nice title'));
+console.log(convertTittleCase('This is a LONG title but not too long'));
+console.log(convertTittleCase('and here is another title with an EXAMPLE'));
+
 // Empty arrays + fill methods
 // const x = new Array(7);
 // console.log(x);
@@ -255,13 +308,13 @@ const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 // const z = Array.from({ length: 7 }, (cur, i) => i + 1);
 // console.log(z);
 
-labelBalance.addEventListener('click', function () {
-  const movementsUI = Array.from(
-    document.querySelectorAll('.movements__value'),
-    el => Number(el.textContent.replace('€', ''))
-  );
-  console.log(movementsUI);
-});
+// labelBalance.addEventListener('click', function () {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => Number(el.textContent.replace('€', ''))
+//   );
+//   console.log(movementsUI);
+// });
 
 // Strings
 // const owners = ['Jonas', 'zach', 'adam', 'martha'];
